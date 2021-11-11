@@ -6,7 +6,7 @@ import profile4 from '../../assets/profile-images/Ellipse -7.png';
 import './payroll-form.scss';
 import logo from '../../assets/images/logo.png';
 import { userParams, Link, withRouter } from 'react-router-dom';
-
+import employeeService from '../../services/employee-service'
 const PayrollForm = (props) => {
     let initialValue = {
         name: '',
@@ -96,6 +96,29 @@ const PayrollForm = (props) => {
 
     const save = async (event) => {
         event.preventDefault();
+        console.log("save");
+
+        if (await validData()) {
+            console.log('error', formValue);
+            return;
+        }
+
+        let object = {
+            name: formValue.name,
+            departmentValues: formValue.departmentValues,
+            gender: formValue.gender,
+            salary: formValue.salary,
+            startDate: `${formValue.day} ${formValue.month} ${formValue.year}`,
+            notes: formValue.notes,
+            id: '',
+            profileUrl: formValue.profileUrl,
+        }
+
+        employeeService.addEmployee(object).then(data => {
+            console.log("Data added");
+        }).catch(error => {
+            console.log("Error while adding");
+        })
     }
 
     const reset = () => {
@@ -152,7 +175,7 @@ const PayrollForm = (props) => {
                                 <span key={item}>
                                     <input className="checkbox" type="checkbox" onChange={() => onCheckChange(item)} name={item} defaultChecked={() => getChecked(item)} value={item} />
                                     <label className="text" htmlFor={item}>{item}</label>
-                                </span>    
+                                </span>
                             ))}
                         </div>
                     </div>

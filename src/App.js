@@ -8,7 +8,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Router>
-          <Route exact path="">
+          <Route exact path="/payroll-form">
             <Payrollform />
           </Route>
         </Router>
