@@ -1,14 +1,20 @@
 import React from 'react';
 import './App.css';
+import Payrollform from './components/payroll-form/payroll-form';
+import { BrowserRouter, Router, Route, Redirect } from "react-router-dom";
 
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>Hello from BridgeLabz</h1>
-      </div>
-    );
-  }
+function App() {
+  return (
+    <div>
+      <BrowserRouter>
+        <Router>
+          <Route exact path="">
+            <Payrollform />
+          </Route>
+        </Router>
+      </BrowserRouter>
+    </div>
+  );
 }
 
 export default App;
