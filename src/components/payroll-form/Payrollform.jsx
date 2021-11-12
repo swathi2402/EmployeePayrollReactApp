@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 import profile1 from '../../assets/profile-images/Ellipse -3.png';
 import profile2 from '../../assets/profile-images/Ellipse 1.png';
 import profile3 from '../../assets/profile-images/Ellipse -8.png';
 import profile4 from '../../assets/profile-images/Ellipse -7.png';
-import './payroll-form.css';
+import './payroll-form.scss';
 import logo from '../../assets/images/logo.png';
 import EmployeeService from '../../services/employee-service'
 const Payrollform = (props) => {
@@ -139,12 +140,12 @@ const Payrollform = (props) => {
             </header>
             <div className="form-content">
                 <form className="form" action="#" onSubmit={save} >
-                    <div className="form-head"> Employee Payroll form </div>
+                    <div className="form-head"> Employee Payroll Form </div>
                     <div className="row-content">
                         <label className="label text" htmlFor="name">Name</label>
                         <input className="input" type="text" id="name" name="name" value={formValue.name} onChange={changeValue} placeholder="Your name.." />
+                        <div className="error">{formValue.error.name}</div>
                     </div>
-                    <div className="error">{formValue.error.name}</div>
                     <div className="row-content">
                         <label className="label text" htmlFor="profileUrl">Profile Image</label>
                         <div className="profile-radio-content">
@@ -165,8 +166,8 @@ const Payrollform = (props) => {
                                 <img className="profile" id='image1' src={profile4} alt="profile" />
                             </label>
                         </div>
+                        <div className="error">{formValue.error.profileUrl}</div>
                     </div>
-                    <div className="error">{formValue.error.profileUrl}</div>
                     <div className="row-content">
                         <label className="label text" htmlFor="gender">Gender</label>
                         <div>
@@ -175,8 +176,8 @@ const Payrollform = (props) => {
                             <input type="radio" id="female" onChange={changeValue} name="gender" value="Female" />
                             <label className="text" htmlFor="female">Female</label>
                         </div>
+                        <div className="error">{formValue.error.gender}</div>
                     </div>
-                    <div className="error">{formValue.error.gender}</div>
                     <div className="row-content">
                         <label className="label text" htmlFor="department">Department</label>
                         <div>
@@ -187,13 +188,13 @@ const Payrollform = (props) => {
                                 </span>
                             ))}
                         </div>
+                        <div className="error">{formValue.error.department}</div>
                     </div>
-                    <div className="error">{formValue.error.department}</div>
                     <div className="row-content">
                         <label className="label text" htmlFor="salary">Salary:</label>
                         <input className="input" type="text" id="salary" name="salary" value={formValue.salary} onChange={changeValue} />
-                    </div>
-                    <div className="error">{formValue.error.salary}</div>
+                        <div className="error">{formValue.error.salary}</div>
+                    </div><br />
                     <div className="row-content">
                         <label className="label text" htmlFor="startDate">Start Date</label>
                         <div>
@@ -253,17 +254,17 @@ const Payrollform = (props) => {
                                 <option value="2016">2016</option>
                             </select>
                         </div>
+                        <div className="error">{formValue.error.startDate}</div>
                     </div>
-                    <div className="error">{formValue.error.startDate}</div>
                     <br /><br />
                     <div className="row-content">
                         <label className="label text" htmlFor="notes">Notes</label>
                         <textarea onChange={changeValue} id="notes" value={formValue.notes} className="input" name="notes" placeholder=""
-                            style={{ height: '120%' }}></textarea>
+                            style={{ height: '100px' }}></textarea>
                         <div className="error">{formValue.error.notes}</div>
                     </div>
                     <div className="buttonParent">
-                        <a href="./home.html" className="resetButton button cancelButton">Cancel</a>
+                        <Link to="" className="resetButton button cancelButton">Cancel</Link>
                         <div className="submit-reset">
                             <button type="submit" className="button submitButton" id="submitButton">{formValue.isUpdate ? 'Update' : 'Submit'}</button>
                             <button type="reset" onClick={reset} className="resetButton button">Reset</button>
