@@ -4,6 +4,6 @@ const axios = require('axios').default;
 export default class EmployeeService {
     baseUrl = config.baseUrl;
     addEmployee(data) {
-        return axios.post(`$(this.baseUrl)EmployeePayrollDB`, data);
+        return axios.post(`${this.baseUrl}EmployeePayrollDB`, data);
     }
 }
