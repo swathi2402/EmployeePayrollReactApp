@@ -104,10 +104,7 @@ const Payrollform = (props) => {
         var year = formValue.year.valueOf();
         var date = new Date(day + " " + month + " " + year);
         var nowDate = new Date();
-        alert(nowDate);
-        alert(date > nowDate);
-        alert(date);
-        
+
         if (date > nowDate) {
             error.startDate = "Date is a future Date!"
             isError = true;
@@ -145,7 +142,7 @@ const Payrollform = (props) => {
             }, 5000);
         }).catch(error => {
             console.log("Error while adding");
-            setDisplayMessage("Error while adding user");
+            setDisplayMessage("Error while Adding User");
             setTimeout(() => {
                 setDisplayMessage("");
             }, 5000);
