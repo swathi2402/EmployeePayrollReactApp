@@ -3,7 +3,29 @@ import { Link } from 'react-router-dom';
 import logo from '../../assets/images/logo.png';
 import addIcon from '../../assets/icons/add-24px.svg';
 import './home.scss';
+import EmployeeService from '../../services/employee-service';
+import Display from '../display/Display';
+
 class Home extends React.Component {
+
+    constructor() {
+        super()
+        this.state = {
+            employeeArray: []
+
+        }
+    }
+
+    employeeService = new EmployeeService();
+
+    getAllEmployees = () => {
+        this.employeeService.getAllEmployees().then(data => {
+            console.log("Data after get ", data.data);
+            this.setState({ employeeArray: data.data })
+        }).catch(error => {
+            console.log("Error after ", error);
+        })
+    }
 
     render() {
         return (
@@ -22,10 +44,10 @@ class Home extends React.Component {
                         <div className="emp-detail-text">
                             Employee Details<div className="emp-count">10</div>
                         </div>
-                        <Link to="Payrollform" className="add-button flex-row-center"><img src={addIcon} alt="" />Add User</Link>
+                        <Link to="/add" className="add-button flex-row-center"><img src={addIcon} alt="" />Add User</Link>
                     </div>
                     <div className="table-main">
-                        {/* <Display employeeArray={ } /> */}
+                        <Display employeeArray={this.state.employeeArray} />
                     </div>
                 </div>
             </div>
