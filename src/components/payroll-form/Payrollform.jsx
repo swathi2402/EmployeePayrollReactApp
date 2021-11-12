@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import profile1 from '../../assets/profile-images/Ellipse -3.png';
 import profile2 from '../../assets/profile-images/Ellipse 1.png';
 import profile3 from '../../assets/profile-images/Ellipse -8.png';
 import profile4 from '../../assets/profile-images/Ellipse -7.png';
 import './payroll-form.css';
 import logo from '../../assets/images/logo.png';
-import { userParams, Link, withRouter } from 'react-router-dom';
-import employeeService from '../../services/employee-service'
+import EmployeeService from '../../services/employee-service'
 const Payrollform = (props) => {
     let initialValue = {
         name: '',
@@ -39,11 +38,12 @@ const Payrollform = (props) => {
             startDate: ''
         }
     }
+    const employeeService = new EmployeeService();
 
     const [formValue, setForm] = useState(initialValue);
 
     const changeValue = (event) => {
-        setForm({ ...formValue, [event.target.name]: event.target.value })
+        setForm({ ...formValue, [event.target.name]: event.target.value });
     }
 
     const onCheckChange = (name) => {
@@ -138,7 +138,7 @@ const Payrollform = (props) => {
                 </div>
             </header>
             <div className="form-content">
-                <form className="form" action="#" onsubmit="{save}" >
+                <form className="form" action="#" onSubmit={save} >
                     <div className="form-head"> Employee Payroll form </div>
                     <div className="row-content">
                         <label className="label text" htmlFor="name">Name</label>
@@ -149,20 +149,20 @@ const Payrollform = (props) => {
                         <label className="label text" htmlFor="profileUrl">Profile Image</label>
                         <div className="profile-radio-content">
                             <label>
-                                <input type="radio" checked={formValue.profileUrl === "../../assets/profile-images/Ellipse -3.png"} name="profileUrl" value="../../assets/profile-images/Ellipse -3.png" />
-                                <img className="profile" id='image1' src={profile1} alt="profile"/>
+                                <input type="radio" checked={formValue.profileUrl === "../../assets/profile-images/Ellipse -3.png"} name="profileUrl" value="../../assets/profile-images/Ellipse -3.png" onChange={changeValue} />
+                                <img className="profile" id='image1' src={profile1} alt="profile" />
                             </label>
                             <label>
-                                <input type="radio" checked={formValue.profileUrl === "../../assets/profile-images/Ellipse 1.png"} name="profileUrl" value="../../assets/profile-images/Ellipse 1.png" />
-                                <img className="profile" id='image1' src={profile2} alt="profile"/>
+                                <input type="radio" checked={formValue.profileUrl === "../../assets/profile-images/Ellipse 1.png"} name="profileUrl" value="../../assets/profile-images/Ellipse 1.png" onChange={changeValue} />
+                                <img className="profile" id='image1' src={profile2} alt="profile" />
                             </label>
                             <label>
-                                <input type="radio" checked={formValue.profileUrl === "../../assets/profile-images/Ellipse -8.png"} name="profileUrl" value="../../assets/profile-images/Ellipse -8.png" />
-                                <img className="profile" id='image1' src={profile3} alt="profile"/>
+                                <input type="radio" checked={formValue.profileUrl === "../../assets/profile-images/Ellipse -8.png"} name="profileUrl" value="../../assets/profile-images/Ellipse -8.png" onChange={changeValue} />
+                                <img className="profile" id='image1' src={profile3} alt="profile" />
                             </label>
                             <label>
-                                <input type="radio" checked={formValue.profileUrl === "../../assets/profile-images/Ellipse -7.png"} name="profileUrl" value="../../assets/profile-images/Ellipse -7.png" />
-                                <img className="profile" id='image1' src={profile4} alt="profile"/>
+                                <input type="radio" checked={formValue.profileUrl === "../../assets/profile-images/Ellipse -7.png"} name="profileUrl" value="../../assets/profile-images/Ellipse -7.png" onChange={changeValue} />
+                                <img className="profile" id='image1' src={profile4} alt="profile" />
                             </label>
                         </div>
                     </div>
@@ -190,14 +190,14 @@ const Payrollform = (props) => {
                     </div>
                     <div className="error">{formValue.error.department}</div>
                     <div className="row-content">
-                        <label className="label text" htmlFor="salary">Choose your salary:</label>
-                        <input className="input" type="range" onCheckChange={changeValue} name="salary" id="salary" min="30000" max="500000" step="100" value="400000" />
+                        <label className="label text" htmlFor="salary">Salary:</label>
+                        <input className="input" type="text" id="salary" name="salary" value={formValue.salary} onChange={changeValue} />
                     </div>
                     <div className="error">{formValue.error.salary}</div>
                     <div className="row-content">
                         <label className="label text" htmlFor="startDate">Start Date</label>
                         <div>
-                            <select onCheckChange={changeValue} id="day" name="Day">
+                            <select onChange={changeValue} id="day" name="Day">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -230,7 +230,7 @@ const Payrollform = (props) => {
                                 <option value="30">30</option>
                                 <option value="31">31</option>
                             </select>
-                            <select onCheckChange={changeValue} id="month" name="Month">
+                            <select onChange={changeValue} id="month" name="Month">
                                 <option value="Jan">January</option>
                                 <option value="Feb">February</option>
                                 <option value="Mar">March</option>
@@ -244,7 +244,7 @@ const Payrollform = (props) => {
                                 <option value="Nov">November</option>
                                 <option value="Dec">December</option>
                             </select>
-                            <select onCheckChange={changeValue} id="year" name="Year">
+                            <select onChange={changeValue} id="year" name="Year">
                                 <option value="2021">2021</option>
                                 <option value="2020">2020</option>
                                 <option value="2019">2019</option>
@@ -258,7 +258,9 @@ const Payrollform = (props) => {
                     <br /><br />
                     <div className="row-content">
                         <label className="label text" htmlFor="notes">Notes</label>
-                        <textarea onCheckChange={changeValue} id="notes" value={formValue.notes} className="input" name="Notes" placeholder="" style={{ height: '120%' }}></textarea>
+                        <textarea onChange={changeValue} id="notes" value={formValue.notes} className="input" name="notes" placeholder=""
+                            style={{ height: '120%' }}></textarea>
+                        <div className="error">{formValue.error.notes}</div>
                     </div>
                     <div className="buttonParent">
                         <a href="./home.html" className="resetButton button cancelButton">Cancel</a>
