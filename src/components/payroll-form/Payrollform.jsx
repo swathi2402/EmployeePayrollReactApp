@@ -291,7 +291,7 @@ const Payrollform = (props) => {
                         <div className="error">{formValue.error.notes}</div>
                     </div>
                     <div className="buttonParent">
-                        <Link to="" className="resetButton button cancelButton">Cancel</Link>
+                        <Link to="/" className="resetButton button cancelButton">Cancel</Link>
                         <div className="submit-reset">
                             <button type="submit" className="button submitButton" id="submitButton">{formValue.isUpdate ? 'Update' : 'Submit'}</button>
                             <button type="reset" onClick={reset} className="resetButton button">Reset</button>
