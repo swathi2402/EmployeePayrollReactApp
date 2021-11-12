@@ -3,11 +3,11 @@ import profile1 from '../../assets/profile-images/Ellipse -3.png';
 import profile2 from '../../assets/profile-images/Ellipse 1.png';
 import profile3 from '../../assets/profile-images/Ellipse -8.png';
 import profile4 from '../../assets/profile-images/Ellipse -7.png';
-import './payroll-form.scss';
+import './payroll-form.css';
 import logo from '../../assets/images/logo.png';
 import { userParams, Link, withRouter } from 'react-router-dom';
 import employeeService from '../../services/employee-service'
-const PayrollForm = (props) => {
+const Payrollform = (props) => {
     let initialValue = {
         name: '',
         profileArray: [
@@ -128,6 +128,15 @@ const PayrollForm = (props) => {
 
     return (
         <div className="payroll-main">
+            <header className='header row center'>
+                <div className="logo">
+                    <img src={logo} alt="" />
+                    <div>
+                        <span className="emp-text">EMPLOYEE</span> <br />
+                        <span className="emp-text emp-payroll">PAYROLL</span>
+                    </div>
+                </div>
+            </header>
             <div className="form-content">
                 <form className="form" action="#" onsubmit="{save}" >
                     <div className="form-head"> Employee Payroll form </div>
@@ -249,7 +258,7 @@ const PayrollForm = (props) => {
                     <br /><br />
                     <div className="row-content">
                         <label className="label text" htmlFor="notes">Notes</label>
-                        <textarea onCheckChange={changeValue} id="notes" value={formValue.notes} className="input" name="Notes" placeholder="" style="height: 100px;"></textarea>
+                        <textarea onCheckChange={changeValue} id="notes" value={formValue.notes} className="input" name="Notes" placeholder="" style={{ height: '120%' }}></textarea>
                     </div>
                     <div className="buttonParent">
                         <a href="./home.html" className="resetButton button cancelButton">Cancel</a>
@@ -264,4 +273,4 @@ const PayrollForm = (props) => {
     )
 }
 
-export default withRouter(PayrollForm);
+export default Payrollform;
