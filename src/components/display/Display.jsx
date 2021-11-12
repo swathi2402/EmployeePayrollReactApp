@@ -1,10 +1,18 @@
 import React from "react";
 import './display.scss';
+import Home from "../home/Home";
 import deleteIcon from '../../assets/icons/delete-black-18dp.svg';
 import editIcon from '../../assets/icons/create-black-18dp.svg';
 import profile from '../../assets/profile-images/Ellipse -3.png';
 
 const Display = (props) => {
+
+    const home = new Home();
+
+    const remove = (id) => {
+        home.deleteEmployee(id);
+    }
+
     return (
         <table id="display" className="table">
             <tbody>
@@ -29,7 +37,7 @@ const Display = (props) => {
                             <td>{elememt.salary}</td>
                             <td>{elememt.startDate}</td>
                             <td>
-                                <img alt="delete" src={deleteIcon} />
+                                <img onClick={() => remove(elememt.id)} alt="delete" src={deleteIcon} />
                                 <img alt="edit" src={editIcon} />
                             </td>
                         </tr>
