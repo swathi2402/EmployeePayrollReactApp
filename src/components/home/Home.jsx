@@ -11,9 +11,11 @@ class Home extends React.Component {
     constructor() {
         super()
         this.state = {
-            employeeArray: []
+            employeeArray: [],
+            size: 0,
 
         }
+        this.getAllEmployees();
     }
 
     employeeService = new EmployeeService();
@@ -21,7 +23,8 @@ class Home extends React.Component {
     getAllEmployees = () => {
         this.employeeService.getAllEmployees().then(data => {
             console.log("Data after get ", data.data);
-            this.setState({ employeeArray: data.data })
+            this.setState({ employeeArray: data.data });
+            this.setState({ size: data.data.length });
         }).catch(error => {
             console.log("Error after ", error);
         })
@@ -42,7 +45,7 @@ class Home extends React.Component {
                 <div className="main-content">
                     <div className="header-content">
                         <div className="emp-detail-text">
-                            Employee Details<div className="emp-count">10</div>
+                            Employee Details<div className="emp-count">{this.state.size}</div>
                         </div>
                         <Link to="/add" className="add-button flex-row-center"><img src={addIcon} alt="" />Add User</Link>
                     </div>
