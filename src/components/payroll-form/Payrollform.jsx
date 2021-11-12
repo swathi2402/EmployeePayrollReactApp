@@ -36,12 +36,14 @@ const Payrollform = (props) => {
             gender: '',
             salary: '',
             profileUrl: '',
-            startDate: ''
+            startDate: '',
+            notes: ''
         }
     }
     const employeeService = new EmployeeService();
 
     const [formValue, setForm] = useState(initialValue);
+    const [displayMeassage, setDisplayMessage] = useState("");
 
     const changeValue = (event) => {
         setForm({ ...formValue, [event.target.name]: event.target.value });
@@ -69,28 +71,48 @@ const Payrollform = (props) => {
             gender: '',
             salary: '',
             profileUrl: '',
-            startDate: ''
+            startDate: '',
+            notes: ''
         }
         if (formValue.name.length < 1) {
-            error.name = 'Name is required field'
+            error.name = 'Name is required field!'
             isError = true;
         }
         if (formValue.gender.length < 1) {
-            error.name = 'Gender is required field'
+            error.gender = 'Gender is required field!'
             isError = true;
         }
         if (formValue.salary.length < 1) {
-            error.name = 'Salary is required field'
+            error.salary = 'Salary is required field!'
             isError = true;
         }
         if (formValue.profileUrl.length < 1) {
-            error.name = 'Profile is required field'
+            error.profileUrl = 'Profile is required field!'
             isError = true;
         }
         if (formValue.departmentValues.length < 1) {
-            error.name = 'Department is required field'
+            error.department = 'Department is required field!'
             isError = true;
         }
+        if (formValue.notes.length < 1) {
+            error.notes = 'Notes is required field!'
+            isError = true;
+        }
+
+        var day = formValue.day.valueOf();
+        var month = formValue.month.valueOf();
+        var year = formValue.year.valueOf();
+        var date = new Date(day + " " + month + " " + year);
+        var nowDate = new Date();
+        alert(nowDate);
+        alert(date > nowDate);
+        alert(date);
+        
+        if (date > nowDate) {
+            error.startDate = "Date is a future Date!"
+            isError = true;
+        }
+
         await setForm({ ...formValue, error: error })
         return isError;
     }
@@ -117,8 +139,16 @@ const Payrollform = (props) => {
 
         employeeService.addEmployee(object).then(data => {
             console.log("Data added");
+            setDisplayMessage("Successfully Added User");
+            setTimeout(() => {
+                setDisplayMessage("");
+            }, 5000);
         }).catch(error => {
             console.log("Error while adding");
+            setDisplayMessage("Error while adding user");
+            setTimeout(() => {
+                setDisplayMessage("");
+            }, 5000);
         })
     }
 
@@ -198,7 +228,7 @@ const Payrollform = (props) => {
                     <div className="row-content">
                         <label className="label text" htmlFor="startDate">Start Date</label>
                         <div>
-                            <select onChange={changeValue} id="day" name="Day">
+                            <select value={formValue.day} onChange={changeValue} id="day" name="day">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -231,7 +261,7 @@ const Payrollform = (props) => {
                                 <option value="30">30</option>
                                 <option value="31">31</option>
                             </select>
-                            <select onChange={changeValue} id="month" name="Month">
+                            <select value={formValue.month} onChange={changeValue} id="month" name="month">
                                 <option value="Jan">January</option>
                                 <option value="Feb">February</option>
                                 <option value="Mar">March</option>
@@ -245,7 +275,7 @@ const Payrollform = (props) => {
                                 <option value="Nov">November</option>
                                 <option value="Dec">December</option>
                             </select>
-                            <select onChange={changeValue} id="year" name="Year">
+                            <select onChange={changeValue} id="year" name="year">
                                 <option value="2021">2021</option>
                                 <option value="2020">2020</option>
                                 <option value="2019">2019</option>
@@ -269,6 +299,9 @@ const Payrollform = (props) => {
                             <button type="submit" className="button submitButton" id="submitButton">{formValue.isUpdate ? 'Update' : 'Submit'}</button>
                             <button type="reset" onClick={reset} className="resetButton button">Reset</button>
                         </div>
+                    </div>
+                    <div className="displaymessage">
+                        {displayMeassage}
                     </div>
                 </form>
             </div>
