@@ -11,6 +11,7 @@ function App() {
         <Switch>
           <Route exact path="/"><Home/></Route>
           <Route exact path="/add"><Payrollform/></Route>
+          <Route exact path="/update"><Payrollform/></Route>
         </Switch>
       </BrowserRouter>
     </div>

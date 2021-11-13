@@ -30,14 +30,6 @@ class Home extends React.Component {
         })
     }
 
-    deleteEmployee = (id) => {
-        this.employeeService.deleteEmployee(id).then(data => {
-            console.log("Deleted data: ", data);
-        }).catch(error => {
-            console.log("Error after ", error);
-        })
-    }
-
     render() {
         return (
             <div>

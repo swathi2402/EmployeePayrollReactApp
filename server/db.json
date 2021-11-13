@@ -3,29 +3,26 @@
     {
       "name": "Swathi",
       "departmentValues": [
-        "Sales",
-        "Engineer"
+        "Sales"
       ],
       "gender": "Female",
-      "salary": "400000",
-      "startDate": "1 Jan 2021",
-      "notes": "er",
-      "id": 5,
-      "profileUrl": "../../assets/profile-images/Ellipse 1.png"
+      "salary": "40000",
+      "startDate": "1 Nov 2021",
+      "notes": "Test",
+      "id": 1,
+      "profileUrl": "../../assets/profile-images/Ellipse1.png"
     },
     {
-      "name": "Poornima",
+      "name": "Abcd",
       "departmentValues": [
-        "Finance",
-        "Engineer",
-        "Others"
+        "HR"
       ],
-      "gender": "Female",
-      "salary": "500000",
-      "startDate": "1 Oct 2021",
-      "notes": "test",
-      "id": 6,
-      "profileUrl": "../../assets/profile-images/Ellipse 1.png"
+      "gender": "Male",
+      "salary": "500",
+      "startDate": "1 Nov 2021",
+      "notes": "Test",
+      "id": 2,
+      "profileUrl": "../../assets/profile-images/Ellipse8.png"
     }
   ]
 }
