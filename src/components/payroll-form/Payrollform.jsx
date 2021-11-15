@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Link, useParams, withRouter } from 'react-router-dom';
 import profile1 from '../../assets/profile-images/Ellipse3.png';
 import profile2 from '../../assets/profile-images/Ellipse1.png';
 import profile3 from '../../assets/profile-images/Ellipse8.png';
@@ -7,11 +7,8 @@ import profile4 from '../../assets/profile-images/Ellipse7.png';
 import './payroll-form.scss';
 import logo from '../../assets/images/logo.png';
 import EmployeeService from '../../services/employee-service'
+
 const Payrollform = (props) => {
-    if (window.location.pathname !== "/update") {
-        localStorage.setItem("employeeData", null);
-    }
-    const employeeData = JSON.parse(localStorage.getItem("employeeData"));
 
     let initialValue = {
         name: '',
@@ -24,7 +21,7 @@ const Payrollform = (props) => {
         allDepartments: [
             'HR', 'Sales', 'Finance', 'Engineer', 'Others'
         ],
-        departmentValues: [],
+        department: [],
         gender: '',
         salary: '',
         day: '1',
@@ -51,33 +48,48 @@ const Payrollform = (props) => {
 
     const [displayMeassage, setDisplayMessage] = useState("");
 
+    const params = useParams();
 
-    if (employeeData) {
-        formValue.name = employeeData.name;
-        formValue.profileUrl = employeeData.profileUrl;
-        formValue.gender = employeeData.gender;
-        formValue.departmentValues = employeeData.departmentValues;
-        formValue.salary = employeeData.salary;
-        formValue.startDate = employeeData.startDate;
-        formValue.salary = employeeData.salary;
-    }
+    useEffect(() => {
+        if (params.id) {
+            console.log("Hello");
+            getDataById(params.id);
+        }
+    }, []);
+
+    const getDataById = (id) => {
+        employeeService.getEmployee(id).then((data) => {
+            console.log("Data is ", data.data);
+            let object = data.data;
+            setData(object);
+        }).catch((error) => {
+            console.log("Error is ", error);
+        });
+    };
+
+    const setData = (object) => {
+        let array = object.startDate.split(" ");
+        setForm({
+            ...formValue, ...object, department: object.department, isUpdate: true, day: array[0], month: array[1], year: array[2],
+        });
+    };
 
     const changeValue = (event) => {
         setForm({ ...formValue, [event.target.name]: event.target.value });
     }
 
     const onCheckChange = (name) => {
-        let index = formValue.departmentValues.indexOf(name);
-        let checkArray = [...formValue.departmentValues]
+        let index = formValue.department.indexOf(name);
+        let checkArray = [...formValue.department]
         if (index > -1)
             checkArray.splice(index, 1)
         else
             checkArray.push(name);
-        setForm({ ...formValue, departmentValues: checkArray });
+        setForm({ ...formValue, department: checkArray });
     }
 
     const getChecked = (name) => {
-        return formValue.departmentValues && formValue.departmentValues.includes(name);
+        return formValue.department && formValue.department.includes(name);
     }
 
     const validData = async () => {
@@ -107,7 +119,7 @@ const Payrollform = (props) => {
             error.profileUrl = 'Profile is required field!'
             isError = true;
         }
-        if (formValue.departmentValues.length < 1) {
+        if (formValue.department.length < 1) {
             error.department = 'Department is required field!'
             isError = true;
         }
@@ -142,7 +154,7 @@ const Payrollform = (props) => {
 
         let object = {
             name: formValue.name,
-            departmentValues: formValue.departmentValues,
+            department: formValue.department,
             gender: formValue.gender,
             salary: formValue.salary,
             startDate: `${formValue.day} ${formValue.month} ${formValue.year}`,
@@ -151,20 +163,39 @@ const Payrollform = (props) => {
             profileUrl: formValue.profileUrl,
         }
 
-        employeeService.addEmployee(object).then(data => {
-            console.log("Data added");
-            setDisplayMessage("Successfully Added User");
-            setTimeout(() => {
-                setDisplayMessage("");
-                window.location.replace("/");
-            }, 5000);
-        }).catch(error => {
-            console.log("Error while adding");
-            setDisplayMessage("Error while Adding User");
-            setTimeout(() => {
-                setDisplayMessage("");
-            }, 5000);
-        })
+        if (formValue.isUpdate) {
+            employeeService.updateEmployee(object, params.id).then((data) => {
+                setDisplayMessage("Successfully Updated User");
+                console.log("Data after update", data);
+                reset();
+                setTimeout(() => {
+                    setDisplayMessage("");
+                    props.history.push("");
+                }, 3000);
+            }).catch((error) => {
+                setDisplayMessage("Error while Updating User");
+                console.log("Error while updating" , error);
+                setTimeout(() => {
+                    setDisplayMessage("");
+                }, 3000);
+            });
+        } else {
+            employeeService.addEmployee(object).then((data) => {
+                setDisplayMessage("Successfully Added User");
+                console.log("Data added");
+                reset();
+                setTimeout(() => {
+                    setDisplayMessage("");
+                    props.history.push("");
+                }, 3000);
+            }).catch((error) => {
+                setDisplayMessage("Error while Adding User");
+                console.log("Error while adding employee");
+                setTimeout(() => {
+                    setDisplayMessage("");
+                }, 3000);
+            });
+        }
     }
 
     const reset = () => {
@@ -228,7 +259,7 @@ const Payrollform = (props) => {
                         <div>
                             {formValue.allDepartments.map(item => (
                                 <span key={item}>
-                                    <input className="checkbox" type="checkbox" onChange={() => onCheckChange(item)} name={item} defaultChecked={() => getChecked(item)} value={item} />
+                                    <input className="checkbox" type="checkbox" onChange={() => onCheckChange(item)} name={item} checked={getChecked(item)} value={item} />
                                     <label className="text" htmlFor={item}>{item}</label>
                                 </span>
                             ))}
@@ -324,4 +355,4 @@ const Payrollform = (props) => {
     )
 }
 
-export default Payrollform;
+export default withRouter(Payrollform);

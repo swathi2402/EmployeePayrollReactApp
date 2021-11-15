@@ -2,27 +2,16 @@
   "EmployeePayrollDB": [
     {
       "name": "Swathi",
-      "departmentValues": [
-        "Sales"
+      "department": [
+        "Finance",
+        "Engineer"
       ],
       "gender": "Female",
-      "salary": "40000",
-      "startDate": "1 Nov 2021",
-      "notes": "Test",
-      "id": 1,
-      "profileUrl": "../../assets/profile-images/Ellipse1.png"
-    },
-    {
-      "name": "Abcd",
-      "departmentValues": [
-        "HR"
-      ],
-      "gender": "Male",
-      "salary": "500",
-      "startDate": "1 Nov 2021",
-      "notes": "Test",
+      "salary": "224",
+      "startDate": "1 Sep 2021",
+      "notes": "777",
       "id": 2,
-      "profileUrl": "../../assets/profile-images/Ellipse8.png"
+      "profileUrl": "../../assets/profile-images/Ellipse1.png"
     }
   ]
 }
