@@ -4,7 +4,10 @@ import './display.scss';
 import EmployeeService from '../../services/employee-service';
 import deleteIcon from '../../assets/icons/delete-black-18dp.svg';
 import editIcon from '../../assets/icons/create-black-18dp.svg';
-
+import profile1 from '../../assets/profile-images/Ellipse3.png';
+import profile2 from '../../assets/profile-images/Ellipse1.png';
+import profile3 from '../../assets/profile-images/Ellipse8.png';
+import profile4 from '../../assets/profile-images/Ellipse7.png';
 
 const Display = (props) => {
 
@@ -17,7 +20,19 @@ const Display = (props) => {
             console.log("Error after ", error);
         });
         window.location.replace("/home");
-        // <Redirect to="/" />
+    }
+
+    var profilePic;
+    const getProfile = (profileUrl) => {
+
+        if (profileUrl === '../../assets/profile-images/Ellipse3.png')
+            profilePic = profile1;
+        else if (profileUrl === '../../assets/profile-images/Ellipse1.png')
+            profilePic = profile2;
+        else if (profileUrl === '../../assets/profile-images/Ellipse8.png')
+            profilePic = profile3;
+        else if (profileUrl === '../../assets/profile-images/Ellipse7.png')
+            profilePic = profile4;
     }
 
     return (
@@ -37,7 +52,7 @@ const Display = (props) => {
 
                         <tr key={index}>
                             <td>
-                                <img className="profile" id='image1' src={require('../../assets/profile-images/Ellipse1.png')} alt="profile" />
+                                <img className="profile" id='image1' onLoad={getProfile(element.profileUrl)} src={profilePic} alt="profile" />
                             </td>
                             <td>{element.name}</td>
                             <td>{element.gender}</td>

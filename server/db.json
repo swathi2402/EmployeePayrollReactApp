@@ -12,6 +12,19 @@
       "notes": "777",
       "id": 2,
       "profileUrl": "../../assets/profile-images/Ellipse1.png"
+    },
+    {
+      "name": "Shrikanth",
+      "department": [
+        "HR",
+        "Engineer"
+      ],
+      "gender": "Male",
+      "salary": "5000000",
+      "startDate": "1 Nov 2021",
+      "notes": "Hello",
+      "id": 3,
+      "profileUrl": "../../assets/profile-images/Ellipse8.png"
     }
   ]
 }
