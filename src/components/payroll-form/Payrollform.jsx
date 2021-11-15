@@ -165,7 +165,7 @@ const Payrollform = (props) => {
 
         if (formValue.isUpdate) {
             employeeService.updateEmployee(object, params.id).then((data) => {
-                setDisplayMessage("Successfully Updated User");
+                setDisplayMessage("Employee Updated Successfully");
                 console.log("Data after update", data);
                 reset();
                 setTimeout(() => {
@@ -173,7 +173,7 @@ const Payrollform = (props) => {
                     props.history.push("");
                 }, 3000);
             }).catch((error) => {
-                setDisplayMessage("Error while Updating User");
+                setDisplayMessage("Error while Updating Employee");
                 console.log("Error while updating" , error);
                 setTimeout(() => {
                     setDisplayMessage("");
@@ -181,7 +181,7 @@ const Payrollform = (props) => {
             });
         } else {
             employeeService.addEmployee(object).then((data) => {
-                setDisplayMessage("Successfully Added User");
+                setDisplayMessage("Employee Added Successfully");
                 console.log("Data added");
                 reset();
                 setTimeout(() => {
@@ -189,7 +189,7 @@ const Payrollform = (props) => {
                     props.history.push("");
                 }, 3000);
             }).catch((error) => {
-                setDisplayMessage("Error while Adding User");
+                setDisplayMessage("Error while Adding Employee");
                 console.log("Error while adding employee");
                 setTimeout(() => {
                     setDisplayMessage("");
