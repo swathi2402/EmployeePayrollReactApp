@@ -9,9 +9,9 @@ function App() {
     <div>
       <BrowserRouter>
         <Switch>
-          <Route exact path="/"><Home/></Route>
-          <Route exact path="/add"><Payrollform/></Route>
-          <Route exact path="/update"><Payrollform/></Route>
+          <Route exact path="/"><Home /></Route>
+          <Route exact path="/add"><Payrollform /></Route>
+          <Route exact path="/add/:id"><Payrollform /></Route>
         </Switch>
       </BrowserRouter>
     </div>
