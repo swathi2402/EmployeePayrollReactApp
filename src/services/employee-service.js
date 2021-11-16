@@ -1,26 +1,26 @@
-import config from '../config/config';
-import AxiosService from './axios-service';
+import axios from 'axios'
+
+const baseUrl = 'http://localhost:8080/';
 
 export default class EmployeeService {
-    baseUrl = config.baseUrl;
 
     addEmployee(data) {
-        return AxiosService.postService(`${this.baseUrl}EmployeePayrollDB`, data);
+        return axios.post(`${baseUrl}payrollservice/create`, data);
     }
 
     getEmployee(id) {
-        return AxiosService.getService(`${this.baseUrl}EmployeePayrollDB/${id}`);
+        return axios.get(`${baseUrl}payrollservice/get/${id}`);
     }
 
     getAllEmployees() {
-        return AxiosService.getService(`${this.baseUrl}EmployeePayrollDB`);
+        return axios.get(`${baseUrl}payrollservice/`);
     }
 
     deleteEmployee(id) {
-        return AxiosService.deleteService(`${this.baseUrl}EmployeePayrollDB/${id}`);
+        return axios.delete(`${baseUrl}payrollservice/delete/${id}`);
     }
 
     updateEmployee(data, id) {
-        return AxiosService.putService(`${this.baseUrl}EmployeePayrollDB/${id}`, data);
+        return axios.put(`${baseUrl}payrollservice/update/${id}`, data);
     }
 }

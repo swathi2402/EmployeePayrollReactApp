@@ -19,7 +19,7 @@ const Display = (props) => {
         }).catch(error => {
             console.log("Error after ", error);
         });
-        window.location.replace("/home");
+        window.location.replace("/");
     }
 
     var profilePic;
@@ -51,8 +51,9 @@ const Display = (props) => {
                     props.employeeArray && props.employeeArray.map((element, index) => (
 
                         <tr key={index}>
+                            {console.log("Hi", element)}
                             <td>
-                                <img className="profile" id='image1' onLoad={getProfile(element.profileUrl)} src={profilePic} alt="profile" />
+                                <img className="profile" id='image1' onLoad={getProfile(element.profilePic)} src={profilePic} alt="profile" />
                             </td>
                             <td>{element.name}</td>
                             <td>{element.gender}</td>
@@ -60,10 +61,14 @@ const Display = (props) => {
                                 <div className="dept-label">{dept}</div>
                             ))}</td>
                             <td>{element.salary}</td>
-                            <td>{element.startDate}</td>
                             <td>
-                                <img onClick={() => remove(element.id)} alt="delete" src={deleteIcon} />
-                                <Link to={`/add/${element.id}`} > <img src={editIcon} alt="edit" /> </Link>
+                                {(new Date(element.startDate)).toLocaleDateString('en-GB', {
+                                    day: 'numeric', month: 'short', year: 'numeric'
+                                })}
+                            </td>
+                            <td>
+                                <img onClick={() => remove(element.employeeId)} alt="delete" src={deleteIcon} />
+                                <Link to={`/add/${element.employeeId}`} > <img src={editIcon} alt="edit" /> </Link>
                             </td>
                         </tr>
                     ))

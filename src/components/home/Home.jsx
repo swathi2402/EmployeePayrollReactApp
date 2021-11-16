@@ -15,16 +15,19 @@ class Home extends React.Component {
             size: 0,
 
         }
-        this.getAllEmployees();
     }
 
     employeeService = new EmployeeService();
 
+    componentDidMount() {
+        this.getAllEmployees();
+      }
+
     getAllEmployees = () => {
         this.employeeService.getAllEmployees().then(data => {
             console.log("Data after get ", data.data);
-            this.setState({ employeeArray: data.data });
-            this.setState({ size: data.data.length });
+            this.setState({ employeeArray: data.data.data });
+            this.setState({ size: data.data.data.length });
         }).catch(error => {
             console.log("Error after ", error);
         })
